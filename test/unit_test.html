@@ -1,0 +1,169 @@
+<!DOCTYPE html> 
+<html>
+ <head>
+ <title></title>
+ <link rel="stylesheet" href="css/full_style.css" type="text/css" />
+ <script src="src/binfile.js"></script>
+ <script src="unit_test.js"></script>
+ <style type="text/css">
+  table { width:100%; border-collapse:collapse; }
+  td { text-align:left; vertical-align:top; }
+
+  table.grid { width:100%; border-collapse:separate; }
+  table.grid thead tr:nth-child(odd) th { background-color:#666; }
+  table.grid thead th { text-align:center; background-color:#555; }
+  table.grid tbody td { text-align:center; vertical-align:top; background-color:#333; }
+  table.grid tbody tr:nth-child(even) td { background-color:#444; }
+
+  /* table.grid td { width:16.6%; } */
+  .passed { color:#afa; }
+  .failed   { color:#faa; border:1px dotted #a66; padding:0 4px; }
+
+  #uagent { font-family: monospace; font-size: 12px; color:#aaa; word-wrap:break-word; width:280px; }
+  #debug1 { font-family: monospace; font-size: 12px; color:#aaf; word-wrap:break-word; width:280px; }
+  #debug2 { font-family: monospace; font-size: 12px; color:#aff; word-wrap:break-word; width:280px; }
+  #debug3 { font-family: monospace; font-size: 12px; color:#faf; word-wrap:break-word; width:280px; }
+  #debug4 { font-family: monospace; font-size: 12px; color:#faa; word-wrap:break-word; width:280px; }
+  #contents { min-height: 420px; }
+ </style>
+</head>
+<body onload="init()">
+<div id="wrapper">
+ <div id="header">
+  <a href="http://carl.gorringe.org/">Home</a> &gt;
+  <a href="#">BinFile.js</a> &gt;
+  <b>Unit Tests</b>
+ </div>
+ <div id="contents">
+
+  <table>
+   <tr><td style="width:300px;">
+    <br/><h2>userAgent</h2><br/>
+    <div id="uagent"></div><br/>
+    <br/><h2>Structs</h2><br/>
+    <div id="debug1"></div><br/>
+    <br/><h2>Data (little-endian)</h2><br/>
+    <div id="debug2">Run unit tests to retrieve this...</div><br/>
+    <br/><h2>Data (big-endian)</h2><br/>
+    <div id="debug3">Run unit tests to retrieve this...</div><br/>
+<!--
+    <br/><h2>Debug</h2><br/>
+    <div id="debug4">Debug...</div><br/>
+-->
+   </td>
+
+   <td>
+    <button type="button" onclick="runUnitTests('unit/unit_data.bin')">Run Unit Tests</button>&nbsp;&nbsp;
+    Values in <span class="passed">green pass</span> / <span class="failed">red fail</span>.
+    <br/><br/>
+    <h3>Integers</h3>
+    <table class="grid" id="int_table">
+     <thead>
+      <tr>
+       <td></td><td></td>
+       <th colspan="2">little-endian</th>
+       <th colspan="2">big-endian</th>
+      </tr>
+      <tr>
+       <th style="width:16.6%">type</th><th style="width:16.6%">name</th>
+       <th style="width:16.6%">test value</th><th style="width:16.6%">read value</th>
+       <th style="width:16.6%">test value</th><th style="width:16.6%">read value</th>
+      </tr>
+     </thead>
+     <tbody>
+      <tr><td>FAIL TEST</td><td>magic</td><td>873594880</td><td></td><td>4660</td><td></td></tr>
+      <tr><td>int32</td><td>magic</td><td>4660</td><td></td><td>873594880</td><td></td></tr>
+
+      <tr><td>int8</td><td>a1</td>   <td>1</td><td></td>     <td>1</td><td></td></tr>
+      <tr><td>int8</td><td>a2</td>   <td>-1</td><td></td>    <td>-1</td><td></td></tr>
+      <tr><td>int8</td><td>a3</td>   <td>-128</td><td></td>  <td>-128</td><td></td></tr>
+      <tr><td>int8</td><td>a4</td>   <td>127</td><td></td>   <td>127</td><td></td></tr>
+      <tr><td>uint8</td><td>a5</td>  <td>0</td><td></td>     <td>0</td><td></td></tr>
+      <tr><td>uint8</td><td>a6</td>  <td>255</td><td></td>   <td>255</td><td></td></tr>
+      <tr><td>int8[4]</td><td>a7</td><td>1, 2, 3, 4</td><td></td><td>1, 2, 3, 4</td><td></td></tr>
+
+      <tr><td>int16</td><td>b1</td>   <td>1</td><td></td>      <td>256</td><td></td></tr>
+      <tr><td>int16</td><td>b2</td>   <td>-1</td><td></td>     <td>-1</td><td></td></tr>
+      <tr><td>int16</td><td>b3</td>   <td>-32768</td><td></td> <td>128</td><td></td></tr>
+      <tr><td>int16</td><td>b4</td>   <td>32767</td><td></td>  <td>-129</td><td></td></tr>
+      <tr><td>uint16</td><td>b5</td>  <td>0</td><td></td>      <td>0</td><td></td></tr>
+      <tr><td>uint16</td><td>b6</td>  <td>65535</td><td></td>  <td>65535</td><td></td></tr>
+      <tr><td>int16[4]</td><td>b7</td><td>5, 6, 7, 8</td><td></td><td>1280, 1536, 1792, 2048</td><td></td></tr>
+
+      <tr><td>int32</td><td>c1</td>   <td>1</td><td></td>           <td>16777216</td><td></td></tr>
+      <tr><td>int32</td><td>c2</td>   <td>-1</td><td></td>          <td>-1</td><td></td></tr>
+      <tr><td>int32</td><td>c3</td>   <td>-2147483648</td><td></td> <td>128</td><td></td></tr>
+      <tr><td>int32</td><td>c4</td>   <td>2147483647</td><td></td>  <td>-129</td><td></td></tr>
+      <tr><td>uint32</td><td>c5</td>  <td>0</td><td></td>           <td>0</td><td></td></tr>
+      <tr><td>uint32</td><td>c6</td>  <td>4294967295</td><td></td>  <td>4294967295</td><td></td></tr>
+      <tr><td>int32[4]</td><td>c7</td><td>9, 10, 11, 12</td><td></td><td>150994944, 167772160, 184549376, 201326592</td><td></td></tr>
+     </tbody>
+    </table><br/><br/>
+
+    <h3>Floats</h3>
+    <table class="grid" id="float_table">
+     <thead>
+      <tr>
+       <td></td><td></td>
+       <th colspan="2">little-endian</th>
+       <th colspan="2">big-endian</th>
+      </tr>
+      <tr>
+       <th style="width:16.6%">type</th><th style="width:16.6%">name</th>
+       <th style="width:16.6%">test value</th><th style="width:16.6%">read value</th>
+       <th style="width:16.6%">test value</th><th style="width:16.6%">read value</th>
+      </tr>
+     </thead>
+     <tbody>
+      <tr><td>float</td><td>d1</td>   <td>0</td><td></td>           <td></td><td></td></tr>
+      <tr><td>float</td><td>d2</td>   <td>-1</td><td></td>          <td></td><td></td></tr>
+      <tr><td>float</td><td>d3</td>   <td>1.23456E+10</td><td></td> <td></td><td></td></tr>
+      <tr><td>float</td><td>d4</td>   <td>5.88E-39</td><td></td>    <td></td><td></td></tr>
+      <tr><td>float</td><td>d5</td>   <td>1.175494E-38</td><td></td> <td></td><td></td></tr>
+      <tr><td>float</td><td>d6</td>   <td>3.402823E+38</td><td></td> <td></td><td></td></tr>
+      <tr><td>float</td><td>d7</td>   <td>-Infinity</td><td></td>    <td></td><td></td></tr>
+      <tr><td>float</td><td>d8</td>   <td>Infinity</td><td></td>   <td></td><td></td></tr>
+      <tr><td>float</td><td>d9</td>   <td>NaN</td><td></td>         <td></td><td></td></tr>
+
+      <tr><td>double</td><td>e1</td>   <td>0</td><td></td>           <td></td><td></td></tr>
+      <tr><td>double</td><td>e2</td>   <td>-1</td><td></td>          <td></td><td></td></tr>
+      <tr><td>double</td><td>e3</td>   <td>1.23456E+10</td><td></td> <td></td><td></td></tr>
+      <tr><td>double</td><td>e4</td>   <td></td><td></td> <td></td><td></td></tr>
+      <tr><td>double</td><td>e5</td>   <td>2.225074E-308</td><td></td> <td></td><td></td></tr>
+      <tr><td>double</td><td>e6</td>   <td>1.7976931348623157E+308</td><td></td> <td></td><td></td></tr>
+      <tr><td>double</td><td>e7</td>   <td>-Infinity</td><td></td>    <td></td><td></td></tr>
+      <tr><td>double</td><td>e8</td>   <td>Infinity</td><td></td>   <td></td><td></td></tr>
+      <tr><td>double</td><td>e9</td>   <td>NaN</td><td></td>         <td></td><td></td></tr>
+     </tbody>
+    </table><br/><br/>
+
+    <h3>Strings</h3>
+    <table class="grid" id="string_table">
+     <thead>
+      <tr></tr>
+      <tr>
+       <th style="width:16.6%">type</th><th style="width:16.6%">name</th>
+       <th style="width:33.3%">test value</th><th style="width:33.3%">read value</th>
+      </tr>
+     </thead>
+     <tbody>
+      <tr><td>char</td><td>f1</td>   <td></td><td></td>  </tr>
+      <tr><td>wchar</td><td>g1</td>  <td></td><td></td>  </tr>
+      <tr><td>chars</td><td>h1</td>  <td></td><td></td>  </tr>
+     </tbody>
+    </table><br/><br/>
+
+   </td></tr>
+  </table>
+
+ </div>
+ <div id="footer">
+  <ul id="copyright">
+   <li>Copyright &copy;&nbsp; 2011 &nbsp; 
+    <a href="http://carl.gorringe.org/">Carl Gorringe</a>
+   </li>
+  </ul>
+ </div>
+</div>
+</body>
+</html>

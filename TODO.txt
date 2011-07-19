@@ -1,0 +1,40 @@
+BinFileJS TODO
+--------------
+updated 7/14/2011
+
+(i) in progress, (+) almost done, (x) done
+
+Data Types:
+  (i) Floating point
+      (i) float, ( ) double
+  ( ) Fixed-length strings
+  ( ) Variable length strings w/ delimiters (chars, wchars?, utf8?)
+
+Libraries:
+  ( ) jQuery plugin?
+  ( ) Stand-alone async AJAX.
+
+Tests:
+  (+) Unit test binary file generator in C.
+  (+) JS Unit tests.
+  ( ) JS Speed tests.
+
+Cross-Browser Support:
+  ( ) IE support using VBscript.
+  ( ) Typed Arrays support
+  ( ) FileAPI support for local reading
+  ( ) Browser Tests: 
+      (x) FF3.6,  (x) FF4,
+      ( ) IE7,    ( ) IE8,
+      (x) Chrome, ( ) Safari,  ( ) Opera,
+      ( ) iPhone, ( ) Android, ( ) Blackberry mobile
+
+Misc:
+  ( ) Performance Improvements
+
+Example Demos:
+  (x) Demo 1: Reading BMP Metadata
+  (x) Demo 2: Playing a FLIC Animation File
+  ( ) Demo 3: Plotting JPEG EXIF Location Data on a Map
+
+

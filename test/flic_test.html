@@ -1,0 +1,77 @@
+<!DOCTYPE html> 
+<html>
+ <head>
+ <title>Playing a FLIC Animation File in JavaScript</title>
+ <link rel="stylesheet" href="css/full_style.css" type="text/css" />
+ <script src="src/binfile.js"></script>
+ <script src="flic_test.js"></script>
+ <style type="text/css">
+  /* body { background: #222; color: white; } */
+  table { width:100%; border-collapse:collapse; }
+  td { text-align:left; vertical-align:top; }
+  #debug1 { font-family: monospace; font-size: 12px; color:#aaf; word-wrap:break-word; width:540px; }
+  #debug2 { font-family: monospace; font-size: 12px; color:#afa; word-wrap:break-word; width:540px; }
+  #debug3 { font-family: monospace; font-size: 12px; color:#faf; word-wrap:break-word; width:540px; }
+  #debug4 { font-family: monospace; font-size: 12px; color:#faa; word-wrap:break-word; width:540px; }
+  .colorBlock { padding:0 10px 0 10px; border:1px solid #000; }
+  #FLIcanvas { width:320px; height:200px; border:1px solid #888; background:#222; }
+  #FLIcount { font-family: monospace; font-size: 16px; color:#a4a; }
+  #contents { min-height: 560px; }
+ </style>
+</head>
+<body>
+<div id="wrapper">
+ <div id="header">
+  <a href="http://carl.gorringe.org/">Home</a> &gt;
+  <a href="#">BinFile.js Demo 2</a> &gt;
+  <b>Playing a FLIC Animation File in JavaScript</b>
+ </div>
+ <div id="contents">
+
+ <table>
+  <tr>
+   <td style="text-align:center; width:400px">
+    <p style="color:#e66">Player doesn't work in IE or Opera</p>
+    <h3 id="imgTitle">fli</h3><br/>
+    <canvas id="FLIcanvas" width="320" height="200"></canvas>
+    <br/>
+    <button type="button" onclick="resetFLI()">Reset</button>
+    <button type="button" onclick="playOrStop()" id="playstop">Play</button>
+    &nbsp;&nbsp;<span id="FLIcount"></span>&nbsp;&nbsp;<br/><br/>
+    <div id="imgPalette"></div>
+   </td>
+   <td>
+    <p>Select a button below to download an FLI or FLC animation file, then press <b>Play</b>.</p>
+<!--
+    <button type="button" onclick="printStructs()">Data Types</button>
+    <button type="button" onclick="clearStructs()">Clear</button>
+    <button type="button" onclick="testSize('fli/EARTH.FLI')">File Size</button> 
+-->
+    <button type="button" onclick="loadFLI('fli/EARTH.FLI')">Earth.FLI (125kb)</button>
+    <button type="button" onclick="loadFLI('fli/COASTER.FLI')">Coaster.FLI (528kb)</button>
+    <button type="button" onclick="loadFLI('fli/INCREGG.FLI')">Incregg.FLI (313kb)</button>
+<!--<button type="button" onclick="loadFLI('fli/TREK.FLI')">Trek.FLI (225kb)</button>-->
+    <button type="button" onclick="loadFLI('fli/BULLET.FLI')">Bullet.FLI (30kb)</button>
+    <button type="button" onclick="loadFLI('fli/BACKFLIP.FLI')">Backflip.FLI (381kb)</button>
+<!--<button type="button" onclick="loadFLI('fli/SPOCKTOK.FLI')">SpockTok.FLI (213kb)</button>-->
+    <button type="button" onclick="loadFLI('fli/EMCONJ1.FLI')">Emconj1.FLI (275kb)</button>
+<!--<button type="button" onclick="loadFLI('fli/VARMIT.FLI')">Varmit.FLI (1.2mb)</button>-->
+    <button type="button" onclick="loadFLI('fli/SPACE.FLC')">Space.FLC (11mb)</button>
+    <br/><br/>
+    <div id="debug1"></div><br/>
+    <div id="debug2"></div><br/>
+   </td>
+  </tr>
+ </table>
+
+ </div>
+ <div id="footer">
+  <ul id="copyright">
+   <li>Copyright &copy;&nbsp; 2011 &nbsp; 
+    <a href="http://carl.gorringe.org/">Carl Gorringe</a>
+   </li>
+  </ul>
+ </div>
+</div>
+</body>
+</html>
