@@ -1,9 +1,8 @@
 README
 ------
 
-BinFileJS v0.01
+BinFileJS v0.01 5/9/2011
 by Carl Gorringe <car1@gorringe.org>
-5/9/2011
 
 BinFileJS is a JavaScript utility for reading binary files from within any web browser, including browsers from within the last few years.
 
