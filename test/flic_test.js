@@ -1,5 +1,5 @@
 // flic_test.js
-// Copyright (c) 2011 Carl Gorringe <car1@gorringe.org>
+// Copyright (c) 2011 Carl Gorringe (carl.gorringe.org)
 // Licensed under the MIT license: http://www.opensource.org/licenses/mit-license
 // https://github.com/cgorringe/BinFileJS
 // 3/31/2011
@@ -61,11 +61,13 @@ var FLItimer, FLIpause, FLIplaying, FLIframe1pos;
     FLIplaying = false;
 
     if (FLIhead.magic == 0xAF11) {
-      FLIpause = (FLIhead.speed * 1000 / 70);    // FLI file (1/70 sec convert to msec)
+      FLIpause = Math.round(FLIhead.speed * 1000 / 70);    // FLI file (1/70 sec convert to msec)
     }
     else if (FLIhead.magic == 0xAF12) {
-      FLIpause = FLIhead.speed;    // FLC file
+      FLIpause = FLIhead.speed;    // FLC file (speed in 1/1000 sec)
     }
+    if (FLIpause == 0) { FLIpause = 50; }  // add default delay if zero (not in spec)
+    //console.log("speed:" + FLIhead.speed + " pause:" + FLIpause + " ms");
 
     // setup 256 color palette
     FLI_R = new Array(256);
@@ -95,7 +97,7 @@ var FLItimer, FLIpause, FLIplaying, FLIframe1pos;
       ['uint16', 'height'   ],
       ['uint16', 'depth'    ],   // 8 colorbits
       ['uint16', 'flags'    ],
-      ['uint32', 'speed'    ],   // FLI:x/70 sec, FLC:x/100 sec pause between frames
+      ['uint32', 'speed'    ],   // FLI:x/70 sec, FLC:x/1000 sec pause between frames
       ['uint16', 'reserved' ],
       ['uint32', 'created'  ],
       ['uint32', 'creator'  ],
